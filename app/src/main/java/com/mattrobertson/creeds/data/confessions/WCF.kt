@@ -6,6 +6,7 @@ import com.mattrobertson.creeds.model.confession.Section
 
 val westminsterConfession = Confession(
     title = "Westminster Confession of Faith",
+    abbreviation = "WCF",
     year = 1646,
     chapters = listOf(
         Chapter(
