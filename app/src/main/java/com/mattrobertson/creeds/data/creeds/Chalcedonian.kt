@@ -2,7 +2,7 @@ package com.mattrobertson.creeds.data.creeds
 
 import com.mattrobertson.creeds.model.creed.Creed
 
-val chalcedonian = Creed(
+val chalcedonianCreed = Creed(
     title = "Chalcedonian Definition",
     abbreviation = "chalcedon",
     year = 451,

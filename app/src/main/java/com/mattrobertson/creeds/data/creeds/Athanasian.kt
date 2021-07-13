@@ -2,7 +2,7 @@ package com.mattrobertson.creeds.data.creeds
 
 import com.mattrobertson.creeds.model.creed.Creed
 
-val athanasian = Creed(
+val athanasianCreed = Creed(
     title = "Athanasian Creed",
     abbreviation = "athanasian",
     year = 500,

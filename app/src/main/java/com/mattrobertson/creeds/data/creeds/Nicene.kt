@@ -2,7 +2,7 @@ package com.mattrobertson.creeds.data.creeds
 
 import com.mattrobertson.creeds.model.creed.Creed
 
-val nicene = Creed(
+val niceneCreed = Creed(
     title = "Nicene Creed",
     abbreviation = "nicene",
     year = 325,
