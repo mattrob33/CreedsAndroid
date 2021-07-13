@@ -5,9 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.mattrobertson.creeds.data.creeds.apostlesCreed
+import com.mattrobertson.creeds.data.creeds.niceneCreed
+import com.mattrobertson.creeds.model.creed.Creed
+import com.mattrobertson.creeds.ui.composables.CreedView
 import com.mattrobertson.creeds.ui.theme.CreedsTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,24 +18,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CreedsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                CreedScreen(apostlesCreed)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun CreedScreen(creed: Creed) {
+    Surface(color = MaterialTheme.colors.background) {
+        CreedView(creed)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     CreedsTheme {
-        Greeting("Android")
+        CreedScreen(apostlesCreed)
     }
 }

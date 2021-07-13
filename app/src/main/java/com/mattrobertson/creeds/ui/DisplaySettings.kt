@@ -19,15 +19,15 @@ data class DisplaySettings(
     companion object {
         val DEFAULT: DisplaySettings
             get() = DisplaySettings(
-                titleFontSize = 20.sp,
+                titleFontSize = 24.sp,
                 titleFont = FontFamily.Serif,
                 titleFontWeight = FontWeight.W500,
                 titleLineHeightMultiplier = 1f,
 
-                bodyFontSize = 14.sp,
+                bodyFontSize = 18.sp,
                 bodyFont = FontFamily.Serif,
                 bodyFontWeight = FontWeight.W400,
-                bodyLineHeightMultiplier = 1.25f
+                bodyLineHeightMultiplier = 1.4f
             )
     }
 }
