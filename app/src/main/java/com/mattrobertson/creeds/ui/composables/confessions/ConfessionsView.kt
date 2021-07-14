@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
@@ -20,6 +21,7 @@ import com.mattrobertson.creeds.data.confessions.westminsterConfession
 import com.mattrobertson.creeds.model.confession.Chapter
 import com.mattrobertson.creeds.model.confession.Confession
 import com.mattrobertson.creeds.model.confession.Section
+import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @Preview
@@ -31,7 +33,10 @@ fun ConfessionViewPreview() {
 }
 
 @Composable
-fun ConfessionView(confession: Confession) {
+fun ConfessionView(
+    confession: Confession,
+    displaySettings: DisplaySettings = DisplaySettings.Default
+) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -41,12 +46,15 @@ fun ConfessionView(confession: Confession) {
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
-        ConfessionTitle(confession.title)
+        ConfessionTitle(
+            text = confession.title,
+            textStyle = displaySettings.titleStyle
+        )
 
         ConfessionTitleSpacer()
 
         confession.chapters.forEachIndexed { chapterNum, chapter ->
-            Chapter(chapterNum + 1, chapter)
+            Chapter(chapterNum + 1, chapter, displaySettings)
             ChapterSpacer()
         }
     }
@@ -55,6 +63,7 @@ fun ConfessionView(confession: Confession) {
 @Composable
 fun ConfessionTitle(
     text: String,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -62,7 +71,7 @@ fun ConfessionTitle(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.h1
+        style = textStyle
     )
 }
 
@@ -70,14 +79,22 @@ fun ConfessionTitle(
 fun Chapter(
     chapterNum: Int,
     chapter: Chapter,
+    displaySettings: DisplaySettings,
     modifier: Modifier = Modifier
 ) {
-    ChapterTitle("${chapterNum}. ${chapter.title}")
+    ChapterTitle(
+        text = "${chapterNum}. ${chapter.title}",
+        textStyle = displaySettings.chapterTitleStyle
+    )
 
     ChapterTitleSpacer()
 
     chapter.sections.forEachIndexed { sectionNum, section ->
-        Section(sectionNum + 1, section)
+        Section(
+            sectionNum = sectionNum + 1,
+            section = section,
+            textStyle = displaySettings.bodyStyle
+        )
         SectionSpacer()
     }
 }
@@ -85,6 +102,7 @@ fun Chapter(
 @Composable
 fun ChapterTitle(
     text: String,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -92,7 +110,7 @@ fun ChapterTitle(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Left,
-        style = MaterialTheme.typography.h2
+        style = textStyle
     )
 }
 
@@ -100,6 +118,7 @@ fun ChapterTitle(
 fun Section(
     sectionNum: Int,
     section: Section,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     val paragraphStyle = ParagraphStyle(
@@ -119,7 +138,7 @@ fun Section(
     Text(
         text = bodyText,
         color = MaterialTheme.colors.onSurface,
-        style = MaterialTheme.typography.body1
+        style = textStyle
     )
 }
 

@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mattrobertson.creeds.data.creeds.apostlesCreed
 import com.mattrobertson.creeds.model.creed.Creed
+import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @Preview
@@ -29,7 +31,10 @@ fun CreedViewPreview() {
 }
 
 @Composable
-fun CreedView(creed: Creed) {
+fun CreedView(
+    creed: Creed,
+    displaySettings: DisplaySettings = DisplaySettings.Default
+) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -39,15 +44,24 @@ fun CreedView(creed: Creed) {
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
-        Title(creed.title)
+        Title(
+            text = creed.title,
+            textStyle = displaySettings.titleStyle
+        )
+
         TitleSpacer()
-        BodyText(creed.text)
+
+        BodyText(
+            text = creed.text,
+            textStyle = displaySettings.bodyStyle
+        )
     }
 }
 
 @Composable
 fun Title(
     text: String,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -55,19 +69,20 @@ fun Title(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.h1
+        style = textStyle
     )
 }
 
 @Composable
 fun BodyText(
     text: String,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     val paragraphStyle = ParagraphStyle(
         textIndent = TextIndent(
             firstLine = 0.sp,
-            restLine = MaterialTheme.typography.body1.fontSize * 1.25
+            restLine = textStyle.fontSize * 1.25
         )
     )
 
@@ -80,7 +95,7 @@ fun BodyText(
     Text(
         text = bodyText,
         color = MaterialTheme.colors.onSurface,
-        style = MaterialTheme.typography.body1
+        style = textStyle
     )
 }
 
