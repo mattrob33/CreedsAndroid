@@ -4,7 +4,7 @@ import com.mattrobertson.creeds.model.creed.Creed
 
 val apostlesCreed = Creed(
     title = "Apostles Creed",
-    abbreviation = "apostles",
+    abbreviation = "Apostles",
     year = 200,
     text = """
         I believe in God, the Father almighty,

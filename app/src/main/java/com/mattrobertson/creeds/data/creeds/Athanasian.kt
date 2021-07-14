@@ -4,7 +4,7 @@ import com.mattrobertson.creeds.model.creed.Creed
 
 val athanasianCreed = Creed(
     title = "Athanasian Creed",
-    abbreviation = "athanasian",
+    abbreviation = "Athanasian",
     year = 500,
     text = """
         Whoever desires to be saved should above all hold to the catholic faith.

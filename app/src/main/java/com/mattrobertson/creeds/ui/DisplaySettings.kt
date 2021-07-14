@@ -4,6 +4,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import com.mattrobertson.creeds.ui.fonts.merriweather
+import com.mattrobertson.creeds.ui.fonts.trirong
 
 data class DisplaySettings(
     var titleFontSize: TextUnit,
@@ -20,13 +22,13 @@ data class DisplaySettings(
         val DEFAULT: DisplaySettings
             get() = DisplaySettings(
                 titleFontSize = 24.sp,
-                titleFont = FontFamily.Serif,
-                titleFontWeight = FontWeight.W500,
+                titleFont = trirong,
+                titleFontWeight = FontWeight.SemiBold,
                 titleLineHeightMultiplier = 1f,
 
                 bodyFontSize = 18.sp,
-                bodyFont = FontFamily.Serif,
-                bodyFontWeight = FontWeight.W400,
+                bodyFont = merriweather,
+                bodyFontWeight = FontWeight.Light,
                 bodyLineHeightMultiplier = 1.4f
             )
     }

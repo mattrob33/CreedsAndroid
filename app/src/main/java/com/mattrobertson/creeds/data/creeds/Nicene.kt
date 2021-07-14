@@ -4,7 +4,7 @@ import com.mattrobertson.creeds.model.creed.Creed
 
 val niceneCreed = Creed(
     title = "Nicene Creed",
-    abbreviation = "nicene",
+    abbreviation = "Nicene",
     year = 325,
     text = """
         We believe in one God,
