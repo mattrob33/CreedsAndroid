@@ -8,16 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
-import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun ConfessionsScreen(
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT
-) {
+fun ConfessionsScreen() {
     val tabs = listOf(
         ConfessionTab.Westminster
     )

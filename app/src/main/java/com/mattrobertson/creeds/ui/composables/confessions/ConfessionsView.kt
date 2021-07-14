@@ -20,7 +20,6 @@ import com.mattrobertson.creeds.data.confessions.westminsterConfession
 import com.mattrobertson.creeds.model.confession.Chapter
 import com.mattrobertson.creeds.model.confession.Confession
 import com.mattrobertson.creeds.model.confession.Section
-import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @Preview
@@ -32,10 +31,7 @@ fun ConfessionViewPreview() {
 }
 
 @Composable
-fun ConfessionView(
-    confession: Confession,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT
-) {
+fun ConfessionView(confession: Confession) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -45,15 +41,12 @@ fun ConfessionView(
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
-        ConfessionTitle(
-            text = confession.title,
-            displaySettings = displaySettings
-        )
+        ConfessionTitle(confession.title)
 
         ConfessionTitleSpacer()
 
         confession.chapters.forEachIndexed { chapterNum, chapter ->
-            Chapter(chapterNum + 1, chapter, displaySettings)
+            Chapter(chapterNum + 1, chapter)
             ChapterSpacer()
         }
     }
@@ -62,7 +55,6 @@ fun ConfessionView(
 @Composable
 fun ConfessionTitle(
     text: String,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -70,10 +62,7 @@ fun ConfessionTitle(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
-        fontSize = displaySettings.titleFontSize,
-        fontFamily = displaySettings.titleFont,
-        fontWeight = displaySettings.titleFontWeight,
-        lineHeight = displaySettings.titleFontSize * displaySettings.titleLineHeightMultiplier
+        style = MaterialTheme.typography.h1
     )
 }
 
@@ -81,7 +70,6 @@ fun ConfessionTitle(
 fun Chapter(
     chapterNum: Int,
     chapter: Chapter,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     ChapterTitle("${chapterNum}. ${chapter.title}")
@@ -89,7 +77,7 @@ fun Chapter(
     ChapterTitleSpacer()
 
     chapter.sections.forEachIndexed { sectionNum, section ->
-        Section(sectionNum + 1, section, displaySettings)
+        Section(sectionNum + 1, section)
         SectionSpacer()
     }
 }
@@ -97,7 +85,6 @@ fun Chapter(
 @Composable
 fun ChapterTitle(
     text: String,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -105,10 +92,7 @@ fun ChapterTitle(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Left,
-        fontSize = displaySettings.subtitleFontSize,
-        fontFamily = displaySettings.subtitleFont,
-        fontWeight = displaySettings.subtitleFontWeight,
-        lineHeight = displaySettings.subtitleFontSize * displaySettings.subtitleLineHeightMultiplier
+        style = MaterialTheme.typography.h2
     )
 }
 
@@ -116,7 +100,6 @@ fun ChapterTitle(
 fun Section(
     sectionNum: Int,
     section: Section,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     val paragraphStyle = ParagraphStyle(
@@ -136,10 +119,7 @@ fun Section(
     Text(
         text = bodyText,
         color = MaterialTheme.colors.onSurface,
-        fontSize = displaySettings.bodyFontSize,
-        fontFamily = displaySettings.bodyFont,
-        fontWeight = displaySettings.bodyFontWeight,
-        lineHeight = displaySettings.bodyFontSize * displaySettings.bodyLineHeightMultiplier
+        style = MaterialTheme.typography.body1
     )
 }
 

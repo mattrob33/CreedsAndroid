@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mattrobertson.creeds.data.creeds.apostlesCreed
 import com.mattrobertson.creeds.model.creed.Creed
-import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @Preview
@@ -30,10 +29,7 @@ fun CreedViewPreview() {
 }
 
 @Composable
-fun CreedView(
-    creed: Creed,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT
-) {
+fun CreedView(creed: Creed) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -43,24 +39,15 @@ fun CreedView(
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
-        Title(
-            text = creed.title,
-            displaySettings = displaySettings
-        )
-
+        Title(creed.title)
         TitleSpacer()
-
-        BodyText(
-            text = creed.text,
-            displaySettings = displaySettings
-        )
+        BodyText(creed.text)
     }
 }
 
 @Composable
 fun Title(
     text: String,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     Text(
@@ -68,23 +55,19 @@ fun Title(
         color = MaterialTheme.colors.onSurface,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
-        fontSize = displaySettings.titleFontSize,
-        fontFamily = displaySettings.titleFont,
-        fontWeight = displaySettings.titleFontWeight,
-        lineHeight = displaySettings.titleFontSize * displaySettings.titleLineHeightMultiplier
+        style = MaterialTheme.typography.h1
     )
 }
 
 @Composable
 fun BodyText(
     text: String,
-    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     val paragraphStyle = ParagraphStyle(
         textIndent = TextIndent(
             firstLine = 0.sp,
-            restLine = displaySettings.bodyFontSize * 1.25
+            restLine = MaterialTheme.typography.body1.fontSize * 1.25
         )
     )
 
@@ -97,10 +80,7 @@ fun BodyText(
     Text(
         text = bodyText,
         color = MaterialTheme.colors.onSurface,
-        fontSize = displaySettings.bodyFontSize,
-        fontFamily = displaySettings.bodyFont,
-        fontWeight = displaySettings.bodyFontWeight,
-        lineHeight = displaySettings.bodyFontSize * displaySettings.bodyLineHeightMultiplier
+        style = MaterialTheme.typography.body1
     )
 }
 
