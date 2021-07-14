@@ -1,4 +1,4 @@
-package com.mattrobertson.creeds.ui.composables.creeds
+package com.mattrobertson.creeds.ui.composables.confessions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
@@ -15,14 +15,11 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun CreedsScreen(
+fun ConfessionsScreen(
     displaySettings: DisplaySettings = DisplaySettings.DEFAULT
 ) {
     val tabs = listOf(
-        CreedTab.Apostles,
-        CreedTab.Nicene,
-        CreedTab.Athanasian,
-        CreedTab.Chalcedonian
+        ConfessionTab.Westminster
     )
 
     val pagerState = rememberPagerState(pageCount = tabs.size)
@@ -37,16 +34,16 @@ fun CreedsScreen(
 @Composable
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
-fun CreedsScreenPreview() {
+fun ConfessionsScreenPreview() {
     AppTheme {
-        CreedsScreen()
+        ConfessionsScreen()
     }
 }
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @Composable
-fun Tabs(tabs: List<CreedTab>, pagerState: PagerState) {
+fun Tabs(tabs: List<ConfessionTab>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
 
     ScrollableTabRow(
@@ -63,7 +60,7 @@ fun Tabs(tabs: List<CreedTab>, pagerState: PagerState) {
 
         tabs.forEachIndexed { index, tab ->
             Tab(
-                text = { Text(tab.creed.abbreviation) },
+                text = { Text(tab.confession.abbreviation) },
                 selected = pagerState.currentPage == index,
                 onClick = {
                     scope.launch {
@@ -81,10 +78,7 @@ fun Tabs(tabs: List<CreedTab>, pagerState: PagerState) {
 @Composable
 fun TabsPreview() {
     val tabs = listOf(
-        CreedTab.Apostles,
-        CreedTab.Nicene,
-        CreedTab.Athanasian,
-        CreedTab.Chalcedonian
+        ConfessionTab.Westminster
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
 
@@ -95,10 +89,10 @@ fun TabsPreview() {
 
 @ExperimentalPagerApi
 @Composable
-fun TabsContent(tabs: List<CreedTab>, pagerState: PagerState) {
+fun TabsContent(tabs: List<ConfessionTab>, pagerState: PagerState) {
     HorizontalPager(state = pagerState) { page ->
-        val creed = tabs[page].creed
-        CreedView(creed = creed)
+        val confession = tabs[page].confession
+        ConfessionView(confession = confession)
     }
 }
 
@@ -108,10 +102,7 @@ fun TabsContent(tabs: List<CreedTab>, pagerState: PagerState) {
 @Composable
 fun TabsContentPreview() {
     val tabs = listOf(
-        CreedTab.Apostles,
-        CreedTab.Nicene,
-        CreedTab.Athanasian,
-        CreedTab.Chalcedonian
+        ConfessionTab.Westminster
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
     TabsContent(tabs = tabs, pagerState = pagerState)

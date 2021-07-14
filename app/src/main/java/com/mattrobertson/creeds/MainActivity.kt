@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.mattrobertson.creeds.ui.composables.MainScreen
-import com.mattrobertson.creeds.ui.theme.CreedsTheme
+import com.mattrobertson.creeds.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     @ExperimentalMaterialApi
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CreedsTheme {
+            AppTheme {
                 MainScreen()
             }
         }

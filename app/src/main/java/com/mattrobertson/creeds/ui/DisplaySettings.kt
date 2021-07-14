@@ -13,6 +13,11 @@ data class DisplaySettings(
     var titleFontWeight: FontWeight,
     var titleLineHeightMultiplier: Float,
 
+    var subtitleFontSize: TextUnit,
+    var subtitleFont: FontFamily,
+    var subtitleFontWeight: FontWeight,
+    var subtitleLineHeightMultiplier: Float,
+
     var bodyFontSize: TextUnit,
     var bodyFont: FontFamily,
     var bodyFontWeight: FontWeight,
@@ -25,6 +30,11 @@ data class DisplaySettings(
                 titleFont = trirong,
                 titleFontWeight = FontWeight.SemiBold,
                 titleLineHeightMultiplier = 1f,
+
+                subtitleFontSize = 20.sp,
+                subtitleFont = trirong,
+                subtitleFontWeight = FontWeight.SemiBold,
+                subtitleLineHeightMultiplier = 1f,
 
                 bodyFontSize = 18.sp,
                 bodyFont = merriweather,

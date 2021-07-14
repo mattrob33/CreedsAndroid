@@ -2,8 +2,6 @@ package com.mattrobertson.creeds.ui.composables
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,15 +15,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.mattrobertson.creeds.ui.Screen
+import com.mattrobertson.creeds.ui.composables.confessions.ConfessionsScreen
 import com.mattrobertson.creeds.ui.composables.creeds.CreedsScreen
-import com.mattrobertson.creeds.ui.theme.CreedsTheme
+import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @Composable
 @Preview
 fun MainScreen() {
-    CreedsTheme {
+    AppTheme {
         val bottomNavItems = listOf(
             Screen.Creeds,
             Screen.Confessions,
@@ -66,9 +65,9 @@ fun MainScreen() {
         ) { innerPadding ->
             NavHost(navController, startDestination = Screen.Creeds.route, Modifier.padding(innerPadding)) {
                 composable(Screen.Creeds.route) { CreedsScreen() }
-                composable(Screen.Confessions.route) { CreedsScreen() }
-                composable(Screen.Catechisms.route) { CreedsScreen() }
-                composable(Screen.Settings.route) { CreedsScreen() }
+                composable(Screen.Confessions.route) { ConfessionsScreen() }
+                composable(Screen.Catechisms.route) {  }
+                composable(Screen.Settings.route) {  }
             }
         }
     }

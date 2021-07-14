@@ -1,4 +1,4 @@
-package com.mattrobertson.creeds.ui.composables.creeds
+package com.mattrobertson.creeds.ui.composables.confessions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,22 +16,24 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mattrobertson.creeds.data.creeds.apostlesCreed
-import com.mattrobertson.creeds.model.creed.Creed
+import com.mattrobertson.creeds.data.confessions.westminsterConfession
+import com.mattrobertson.creeds.model.confession.Chapter
+import com.mattrobertson.creeds.model.confession.Confession
+import com.mattrobertson.creeds.model.confession.Section
 import com.mattrobertson.creeds.ui.DisplaySettings
-import com.mattrobertson.creeds.ui.theme.CreedsTheme
+import com.mattrobertson.creeds.ui.theme.AppTheme
 
 @Preview
 @Composable
-fun CreedViewPreview() {
-    CreedsTheme {
-        CreedView(creed = apostlesCreed)
+fun ConfessionViewPreview() {
+    AppTheme {
+        ConfessionView(confession = westminsterConfession)
     }
 }
 
 @Composable
-fun CreedView(
-    creed: Creed,
+fun ConfessionView(
+    confession: Confession,
     displaySettings: DisplaySettings = DisplaySettings.DEFAULT
 ) {
     val scrollState = rememberScrollState()
@@ -43,22 +45,22 @@ fun CreedView(
             .padding(16.dp)
             .verticalScroll(scrollState)
     ) {
-        Title(
-            text = creed.title,
+        ConfessionTitle(
+            text = confession.title,
             displaySettings = displaySettings
         )
 
-        TitleSpacer()
+        ConfessionTitleSpacer()
 
-        BodyText(
-            text = creed.text,
-            displaySettings = displaySettings
-        )
+        confession.chapters.forEachIndexed { chapterNum, chapter ->
+            Chapter(chapterNum + 1, chapter, displaySettings)
+            ChapterSpacer()
+        }
     }
 }
 
 @Composable
-fun Title(
+fun ConfessionTitle(
     text: String,
     displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
@@ -76,21 +78,58 @@ fun Title(
 }
 
 @Composable
-fun BodyText(
+fun Chapter(
+    chapterNum: Int,
+    chapter: Chapter,
+    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
+    modifier: Modifier = Modifier
+) {
+    ChapterTitle("${chapterNum}. ${chapter.title}")
+
+    ChapterTitleSpacer()
+
+    chapter.sections.forEachIndexed { sectionNum, section ->
+        Section(sectionNum + 1, section, displaySettings)
+        SectionSpacer()
+    }
+}
+
+@Composable
+fun ChapterTitle(
     text: String,
+    displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = MaterialTheme.colors.onSurface,
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Left,
+        fontSize = displaySettings.subtitleFontSize,
+        fontFamily = displaySettings.subtitleFont,
+        fontWeight = displaySettings.subtitleFontWeight,
+        lineHeight = displaySettings.subtitleFontSize * displaySettings.subtitleLineHeightMultiplier
+    )
+}
+
+@Composable
+fun Section(
+    sectionNum: Int,
+    section: Section,
     displaySettings: DisplaySettings = DisplaySettings.DEFAULT,
     modifier: Modifier = Modifier
 ) {
     val paragraphStyle = ParagraphStyle(
         textIndent = TextIndent(
             firstLine = 0.sp,
-            restLine = displaySettings.bodyFontSize * 1.25
+            restLine = 0.sp
         )
     )
 
     val bodyText = buildAnnotatedString {
         withStyle(paragraphStyle) {
-            append(text)
+            append("${sectionNum}. ")
+            append(section.text)
         }
     }
 
@@ -105,6 +144,21 @@ fun BodyText(
 }
 
 @Composable
-fun TitleSpacer() {
+fun ConfessionTitleSpacer() {
+    Spacer(modifier = Modifier.height(16.dp))
+}
+
+@Composable
+fun ChapterTitleSpacer() {
+    Spacer(modifier = Modifier.height(16.dp))
+}
+
+@Composable
+fun ChapterSpacer() {
+    Spacer(modifier = Modifier.height(32.dp))
+}
+
+@Composable
+fun SectionSpacer() {
     Spacer(modifier = Modifier.height(16.dp))
 }
