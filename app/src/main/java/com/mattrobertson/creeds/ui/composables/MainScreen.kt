@@ -15,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.mattrobertson.creeds.ui.Screen
+import com.mattrobertson.creeds.ui.composables.catechisms.CatechismsScreen
 import com.mattrobertson.creeds.ui.composables.confessions.ConfessionsScreen
 import com.mattrobertson.creeds.ui.composables.creeds.CreedsScreen
 import com.mattrobertson.creeds.ui.theme.AppTheme
@@ -66,7 +67,7 @@ fun MainScreen() {
             NavHost(navController, startDestination = Screen.Creeds.route, Modifier.padding(innerPadding)) {
                 composable(Screen.Creeds.route) { CreedsScreen() }
                 composable(Screen.Confessions.route) { ConfessionsScreen() }
-                composable(Screen.Catechisms.route) {  }
+                composable(Screen.Catechisms.route) { CatechismsScreen() }
                 composable(Screen.Settings.route) {  }
             }
         }
