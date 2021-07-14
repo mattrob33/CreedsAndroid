@@ -2,7 +2,7 @@ package com.mattrobertson.creeds.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.mattrobertson.creeds.ui.fonts.merriweather
@@ -19,6 +19,12 @@ val Typography = Typography(
         fontFamily = trirong,
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp
+    ),
+    h3 = TextStyle(
+        fontFamily = trirong,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Italic,
+        fontSize = 19.sp
     ),
     body1 = TextStyle(
         fontFamily = merriweather,

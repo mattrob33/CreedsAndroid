@@ -2,6 +2,7 @@ package com.mattrobertson.creeds.ui.fonts
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.mattrobertson.creeds.R
 
@@ -17,5 +18,6 @@ val trirong = FontFamily(
     Font(R.font.trirong_regular, FontWeight.Normal),
     Font(R.font.trirong_medium, FontWeight.Medium),
     Font(R.font.trirong_semibold, FontWeight.SemiBold),
+    Font(R.font.trirong_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
     Font(R.font.trirong_bold, FontWeight.Bold)
 )

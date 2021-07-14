@@ -15,7 +15,7 @@ data class DisplaySettings(
             @Composable
             get() = DisplaySettings(
                     titleStyle = MaterialTheme.typography.h1,
-                    chapterTitleStyle = MaterialTheme.typography.h2,
+                    chapterTitleStyle = MaterialTheme.typography.h3,
                     catechismQuestionStyle = MaterialTheme.typography.h3,
                     bodyStyle = MaterialTheme.typography.body1
                 )
