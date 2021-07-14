@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Creeds</string>
+    <string name="creeds">Creeds</string>
+    <string name="confessions">Confessions</string>
+    <string name="catechisms">Catechisms</string>
+    <string name="settings">Settings</string>
 </resources>

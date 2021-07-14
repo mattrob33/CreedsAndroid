@@ -1,4 +1,4 @@
-package com.mattrobertson.creeds.ui
+package com.mattrobertson.creeds.ui.composables.creeds
 
 import com.mattrobertson.creeds.data.creeds.apostlesCreed
 import com.mattrobertson.creeds.data.creeds.athanasianCreed
