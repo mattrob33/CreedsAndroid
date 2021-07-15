@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 fun CatechismsScreen() {
     val tabs = listOf(
         CatechismTab.WestminsterShorter,
-        CatechismTab.WestminsterLarger
+        CatechismTab.WestminsterLarger,
+        CatechismTab.Childrens,
+        CatechismTab.Robertson
     )
 
     val pagerState = rememberPagerState(pageCount = tabs.size)
@@ -77,7 +79,9 @@ fun Tabs(tabs: List<CatechismTab>, pagerState: PagerState) {
 fun TabsPreview() {
     val tabs = listOf(
         CatechismTab.WestminsterShorter,
-        CatechismTab.WestminsterLarger
+        CatechismTab.WestminsterLarger,
+        CatechismTab.Childrens,
+        CatechismTab.Robertson
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
 
@@ -102,7 +106,9 @@ fun TabsContent(tabs: List<CatechismTab>, pagerState: PagerState) {
 fun TabsContentPreview() {
     val tabs = listOf(
         CatechismTab.WestminsterShorter,
-        CatechismTab.WestminsterLarger
+        CatechismTab.WestminsterLarger,
+        CatechismTab.Childrens,
+        CatechismTab.Robertson
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
     TabsContent(tabs = tabs, pagerState = pagerState)
