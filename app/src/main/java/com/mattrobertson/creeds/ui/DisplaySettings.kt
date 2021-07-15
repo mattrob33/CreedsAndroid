@@ -15,7 +15,7 @@ data class DisplaySettings(
             @Composable
             get() = DisplaySettings(
                     titleStyle = MaterialTheme.typography.h1,
-                    chapterTitleStyle = MaterialTheme.typography.h3,
+                    chapterTitleStyle = MaterialTheme.typography.h2,
                     catechismQuestionStyle = MaterialTheme.typography.h3.copy(
                         lineHeight = MaterialTheme.typography.h3.fontSize * 1.25
                     ),

@@ -41,9 +41,11 @@ fun CreedView(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
             .verticalScroll(scrollState)
     ) {
+        TitleSpacer()
+
         Title(
             text = creed.title,
             textStyle = displaySettings.titleStyle

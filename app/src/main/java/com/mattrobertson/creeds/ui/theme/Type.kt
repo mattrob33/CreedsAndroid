@@ -18,13 +18,14 @@ val Typography = Typography(
     h2 = TextStyle(
         fontFamily = trirong,
         fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Italic,
         fontSize = 20.sp
     ),
     h3 = TextStyle(
         fontFamily = trirong,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Italic,
-        fontSize = 19.sp
+        fontSize = 18.sp
     ),
     body1 = TextStyle(
         fontFamily = merriweather,
