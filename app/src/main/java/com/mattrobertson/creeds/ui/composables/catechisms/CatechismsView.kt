@@ -2,11 +2,13 @@ package com.mattrobertson.creeds.ui.composables.catechisms
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -16,7 +18,9 @@ import com.mattrobertson.creeds.data.catechisms.wsc
 import com.mattrobertson.creeds.model.catechism.Catechism
 import com.mattrobertson.creeds.model.catechism.QuestionAndAnswer
 import com.mattrobertson.creeds.ui.DisplaySettings
+import com.mattrobertson.creeds.ui.composables.confessions.SliderSpacer
 import com.mattrobertson.creeds.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @Preview
 @Composable
@@ -31,29 +35,62 @@ fun CatechismView(
     catechism: Catechism,
     displaySettings: DisplaySettings = DisplaySettings.Default
 ) {
-    val scrollState = rememberScrollState()
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
-            .padding(horizontal = 16.dp)
-            .verticalScroll(scrollState)
+            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
     ) {
-        CatechismTitleSpacer()
+        LazyColumn(state = listState) {
+            item {
+                CatechismTitleSpacer()
 
-        CatechismTitle(
-            text = catechism.title,
-            textStyle = displaySettings.titleStyle
-        )
+                CatechismTitle(
+                    text = catechism.title,
+                    textStyle = displaySettings.titleStyle
+                )
 
-        CatechismTitleSpacer()
+                CatechismTitleSpacer()
+            }
 
-        catechism.questions.forEachIndexed { questionNum, qa ->
-            QuestionAndAnswer(questionNum + 1, qa, displaySettings)
-            QuestionAndAnswerSpacer()
+            itemsIndexed(catechism.questions) { index, qa ->
+                QuestionAndAnswer(index + 1, qa, displaySettings)
+                QuestionAndAnswerSpacer()
+            }
         }
+
+        SliderSpacer()
+
+        QuestionPickerSlider(
+            numQuestions = catechism.numQuestions,
+            onQuestionChange = { question ->
+                coroutineScope.launch {
+                    listState.scrollToItem(question)
+                }
+            }
+        )
     }
+}
+
+@Composable
+fun QuestionPickerSlider(
+    numQuestions: Int,
+    onQuestionChange: (question: Int) -> Unit
+) {
+    var sliderPosition by remember { mutableStateOf(0f) }
+
+    Slider(
+        value = sliderPosition,
+        onValueChange = {
+            sliderPosition = it
+            onQuestionChange(it.toInt())
+        },
+        valueRange = 0f..(numQuestions.toFloat()),
+        steps = numQuestions + 1
+    )
 }
 
 @Composable
