@@ -2,12 +2,16 @@ package com.mattrobertson.creeds.ui.composables.confessions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -23,6 +27,7 @@ import com.mattrobertson.creeds.model.confession.Confession
 import com.mattrobertson.creeds.model.confession.Section
 import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @Preview
 @Composable
@@ -37,29 +42,62 @@ fun ConfessionView(
     confession: Confession,
     displaySettings: DisplaySettings = DisplaySettings.Default
 ) {
-    val scrollState = rememberScrollState()
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background)
-            .padding(horizontal = 16.dp)
-            .verticalScroll(scrollState)
+            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
     ) {
-        ConfessionTitleSpacer()
+        LazyColumn(state = listState) {
+            item {
+                ConfessionTitleSpacer()
 
-        ConfessionTitle(
-            text = confession.title,
-            textStyle = displaySettings.titleStyle
-        )
+                ConfessionTitle(
+                    text = confession.title,
+                    textStyle = displaySettings.titleStyle
+                )
 
-        ConfessionTitleSpacer()
+                ConfessionTitleSpacer()
+            }
 
-        confession.chapters.forEachIndexed { chapterNum, chapter ->
-            Chapter(chapterNum + 1, chapter, displaySettings)
-            ChapterSpacer()
+            itemsIndexed(confession.chapters) { index, chapter ->
+                Chapter(index + 1, chapter, displaySettings)
+                ChapterSpacer()
+            }
         }
+
+        SliderSpacer()
+
+        ChapterPickerSlider(
+            numChapters = confession.chapterCount,
+            onChapterChange = { chapter ->
+                coroutineScope.launch {
+                    listState.scrollToItem(chapter)
+                }
+            }
+        )
     }
+}
+
+@Composable
+fun ChapterPickerSlider(
+    numChapters: Int,
+    onChapterChange: (chapter: Int) -> Unit
+) {
+    var sliderPosition by remember { mutableStateOf(0f) }
+
+    Slider(
+        value = sliderPosition,
+        onValueChange = {
+            sliderPosition = it
+            onChapterChange(it.toInt())
+        },
+        valueRange = 0f..(numChapters.toFloat()),
+        steps = numChapters + 1
+    )
 }
 
 @Composable
@@ -162,4 +200,9 @@ fun ChapterSpacer() {
 @Composable
 fun SectionSpacer() {
     Spacer(modifier = Modifier.height(16.dp))
+}
+
+@Composable
+fun SliderSpacer() {
+    Spacer(modifier = Modifier.height(8.dp))
 }

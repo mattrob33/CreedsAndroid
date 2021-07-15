@@ -2,8 +2,10 @@ package com.mattrobertson.creeds.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.Anchor
+import androidx.compose.material.icons.rounded.Book
+import androidx.compose.material.icons.rounded.FormatListNumbered
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.mattrobertson.creeds.R
 

@@ -25,7 +25,8 @@ val Typography = Typography(
         fontFamily = trirong,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Italic,
-        fontSize = 18.sp
+        fontSize = 18.sp,
+        lineHeight = 18.sp * 1.25
     ),
     body1 = TextStyle(
         fontFamily = merriweather,

@@ -5,4 +5,8 @@ data class Confession(
     val abbreviation: String,
     val year: Int,
     val chapters: List<Chapter>
-)
+) {
+    val chapterCount: Int by lazy {
+        chapters.size
+    }
+}
