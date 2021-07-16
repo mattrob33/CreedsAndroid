@@ -3,7 +3,6 @@ package com.mattrobertson.creeds.ui.composables.confessions
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
@@ -73,31 +72,30 @@ fun ConfessionView(
         SliderSpacer()
 
         ChapterPickerSlider(
-            numChapters = confession.chapterCount,
-            listState = listState,
-            onChapterChange = { chapter ->
-                coroutineScope.launch {
-                    listState.scrollToItem(chapter)
-                }
+            currentChapter = listState.firstVisibleItemIndex,
+            totalChapters = confession.chapterCount
+        ) { chapter ->
+            coroutineScope.launch {
+                listState.scrollToItem(chapter)
             }
-        )
+        }
     }
 }
 
 @Composable
 fun ChapterPickerSlider(
-    numChapters: Int,
-    listState: LazyListState,
+    currentChapter: Int,
+    totalChapters: Int,
     onChapterChange: (chapter: Int) -> Unit
 ) {
     Slider(
-        value = listState.firstVisibleItemIndex.toFloat(),
+        value = currentChapter.toFloat(),
         onValueChange = {
             val chapter = it.roundToInt()
             onChapterChange(chapter)
         },
-        valueRange = 0f..(numChapters.toFloat()),
-        steps = numChapters + 1
+        valueRange = 0f..(totalChapters.toFloat()),
+        steps = totalChapters + 1
     )
 }
 
