@@ -3,15 +3,15 @@ package com.mattrobertson.creeds.ui.composables.confessions
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -28,6 +28,7 @@ import com.mattrobertson.creeds.model.confession.Section
 import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.theme.AppTheme
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @Preview
 @Composable
@@ -73,6 +74,7 @@ fun ConfessionView(
 
         ChapterPickerSlider(
             numChapters = confession.chapterCount,
+            listState = listState,
             onChapterChange = { chapter ->
                 coroutineScope.launch {
                     listState.scrollToItem(chapter)
@@ -85,15 +87,14 @@ fun ConfessionView(
 @Composable
 fun ChapterPickerSlider(
     numChapters: Int,
+    listState: LazyListState,
     onChapterChange: (chapter: Int) -> Unit
 ) {
-    var sliderPosition by remember { mutableStateOf(0f) }
-
     Slider(
-        value = sliderPosition,
+        value = listState.firstVisibleItemIndex.toFloat(),
         onValueChange = {
-            sliderPosition = it
-            onChapterChange(it.toInt())
+            val chapter = it.roundToInt()
+            onChapterChange(chapter)
         },
         valueRange = 0f..(numChapters.toFloat()),
         steps = numChapters + 1
