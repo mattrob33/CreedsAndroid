@@ -8,7 +8,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -21,6 +22,7 @@ import com.mattrobertson.creeds.ui.DisplaySettings
 import com.mattrobertson.creeds.ui.composables.confessions.SliderSpacer
 import com.mattrobertson.creeds.ui.theme.AppTheme
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @Preview
 @Composable
@@ -65,7 +67,8 @@ fun CatechismView(
         SliderSpacer()
 
         QuestionPickerSlider(
-            numQuestions = catechism.numQuestions,
+            currentQuestion = listState.firstVisibleItemIndex,
+            totalQuestions = catechism.numQuestions,
             onQuestionChange = { question ->
                 coroutineScope.launch {
                     listState.scrollToItem(question)
@@ -77,19 +80,18 @@ fun CatechismView(
 
 @Composable
 fun QuestionPickerSlider(
-    numQuestions: Int,
+    currentQuestion: Int,
+    totalQuestions: Int,
     onQuestionChange: (question: Int) -> Unit
 ) {
-    var sliderPosition by remember { mutableStateOf(0f) }
-
     Slider(
-        value = sliderPosition,
+        value = currentQuestion.toFloat(),
         onValueChange = {
-            sliderPosition = it
-            onQuestionChange(it.toInt())
+            val question = it.roundToInt()
+            onQuestionChange(question)
         },
-        valueRange = 0f..(numQuestions.toFloat()),
-        steps = numQuestions + 1
+        valueRange = 0f..(totalQuestions.toFloat()),
+        steps = totalQuestions + 1
     )
 }
 
