@@ -64,7 +64,12 @@ fun ConfessionView(
             }
 
             itemsIndexed(confession.chapters) { index, chapter ->
-                Chapter(index + 1, chapter, displaySettings)
+                Chapter(
+                    chapterNum = index + 1,
+                    chapter = chapter,
+                    showSectionNumber = !confession.hasSingleSectionChapters,
+                    displaySettings = displaySettings
+                )
                 ChapterSpacer()
             }
         }
@@ -118,6 +123,7 @@ fun ConfessionTitle(
 fun Chapter(
     chapterNum: Int,
     chapter: Chapter,
+    showSectionNumber: Boolean,
     displaySettings: DisplaySettings,
     modifier: Modifier = Modifier
 ) {
@@ -132,6 +138,7 @@ fun Chapter(
         Section(
             sectionNum = sectionNum + 1,
             section = section,
+            showSectionNumber = showSectionNumber,
             textStyle = displaySettings.bodyStyle
         )
         SectionSpacer()
@@ -157,6 +164,7 @@ fun ChapterTitle(
 fun Section(
     sectionNum: Int,
     section: Section,
+    showSectionNumber: Boolean,
     textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
@@ -169,7 +177,8 @@ fun Section(
 
     val bodyText = buildAnnotatedString {
         withStyle(paragraphStyle) {
-            append("${sectionNum}. ")
+            if (showSectionNumber)
+                append("${sectionNum}. ")
             append(section.text)
         }
     }

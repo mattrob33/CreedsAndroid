@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ConfessionsScreen() {
     val tabs = listOf(
-        ConfessionTab.Westminster
+        ConfessionTab.Westminster,
+        ConfessionTab.Belgic
     )
 
     val pagerState = rememberPagerState(pageCount = tabs.size)
@@ -75,7 +76,8 @@ fun Tabs(tabs: List<ConfessionTab>, pagerState: PagerState) {
 @Composable
 fun TabsPreview() {
     val tabs = listOf(
-        ConfessionTab.Westminster
+        ConfessionTab.Westminster,
+        ConfessionTab.Belgic
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
 
@@ -99,7 +101,8 @@ fun TabsContent(tabs: List<ConfessionTab>, pagerState: PagerState) {
 @Composable
 fun TabsContentPreview() {
     val tabs = listOf(
-        ConfessionTab.Westminster
+        ConfessionTab.Westminster,
+        ConfessionTab.Belgic
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
     TabsContent(tabs = tabs, pagerState = pagerState)
